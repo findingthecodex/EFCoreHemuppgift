@@ -1,6 +1,5 @@
 using EFCoreHemuppgift.Models;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 
 namespace EFCoreHemuppgift;
 
@@ -71,5 +70,3 @@ public class ShopContext : DbContext
         );
     }
 }
-
-
