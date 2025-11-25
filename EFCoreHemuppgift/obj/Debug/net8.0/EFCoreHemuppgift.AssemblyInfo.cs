@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EFCoreHemuppgift")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6f34732720b8b34146d079b94fad871399eaeed")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36e7237f7b06a62f0c1afd5fc211743ab4b36a03")]
 [assembly: System.Reflection.AssemblyProductAttribute("EFCoreHemuppgift")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EFCoreHemuppgift")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
