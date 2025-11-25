@@ -10,7 +10,7 @@ public class OrderRow
     public int ProductId { get; set; }
     
     // Properties
-    public int Quantity { get; set; }
+    public int OrderQuantity { get; set; }
     public decimal UnitPrice { get; set; }
     
     // Navigation
