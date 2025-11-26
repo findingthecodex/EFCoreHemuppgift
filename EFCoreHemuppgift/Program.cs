@@ -24,7 +24,9 @@ using (var db = new ShopContext())
    {
       db.Orders.AddRange(
          new Order { OrderId = 1, CustomerId = 1, OrderDate = DateTime.Now.AddDays(-10), OrderStatus = "Shipped"},
-         new Order { OrderId = 2, CustomerId = 2, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Processing"}
+         new Order { OrderId = 2, CustomerId = 2, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Processing"},
+         new Order { OrderId = 3, CustomerId = 3, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Paid"},
+         new Order { OrderId = 4, CustomerId = 4, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Delivered"}
          );
       await db.SaveChangesAsync();
       Console.WriteLine("Seeded Orders");
@@ -45,8 +47,8 @@ using (var db = new ShopContext())
    {
       db.OrderRows.AddRange(
          new OrderRow { OrderRowId = 1, OrderId = 1, ProductId = 1, OrderQuantity = 1, UnitPrice = 10000.00m },
-         new OrderRow { OrderRowId = 2, OrderId = 1, ProductId = 2, OrderQuantity = 1, UnitPrice = 5000.00m },
-         new OrderRow { OrderRowId = 3, OrderId = 2, ProductId = 3, OrderQuantity = 1, UnitPrice = 3000.00m }
+         new OrderRow { OrderRowId = 2, OrderId = 2, ProductId = 2, OrderQuantity = 1, UnitPrice = 5000.00m },
+         new OrderRow { OrderRowId = 3, OrderId = 3, ProductId = 3, OrderQuantity = 1, UnitPrice = 3000.00m }
       );
       await db.SaveChangesAsync();
       Console.WriteLine("Seeded OrderRows");
@@ -125,7 +127,7 @@ static async Task OrderMenu()
 {
    while (true)
    {
-      Console.WriteLine("\nOrder Menu: 1. Order-List | 2. Order-Details | 3. Add-Order | 4. Exit");
+      Console.WriteLine("\nOrder Menu: 1. Order-List | 2. Order-Details | 3. New-Order | 4. Order-Status | 5. Orders-By-Customers | 6. Exit");
       Console.WriteLine(">");
       var line = Console.ReadLine()?.Trim() ?? string.Empty;
 
@@ -155,6 +157,12 @@ static async Task OrderMenu()
             await OrderService.OrderAddAsync();
             break;
          case"4":
+            await OrderService.OrderByStatusAsync();
+            break;
+         case"5":
+            await OrderService.OrdersByCustomers();
+            break;
+         case"6":
             return;
          default:
             Console.WriteLine("Unknown command");
