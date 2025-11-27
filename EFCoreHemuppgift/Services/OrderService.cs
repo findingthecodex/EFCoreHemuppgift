@@ -246,20 +246,68 @@ public class OrderService
         }
     }
 
-    public static async Task OrdersPage()
+// csharp
+    public static async Task OrdersPage(int page, int pageSize)
     {
         using var db = new ShopContext();
-        
-        var query = db.Orders
-            .Include(o => o.OrderRows)
+        int currentPage = Math.Max(page, 1);
+    
+        while (true)
+        {
+            var query = db.Orders
+                .Include(o => o.Customer)
+                .Include(o => o.OrderRows)
+                .ThenInclude(or => or.Product)
+                .OrderByDescending(o => o.OrderDate)
+                .AsNoTracking();
+    
+            var totalCount = await query.CountAsync();
+            var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)pageSize));
+    
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+    
+            var pageItems = await query
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+    
+            Console.WriteLine($"\nPage {currentPage}/{totalPages} (pageSize={pageSize}, total={totalCount})");
+            Console.WriteLine("CustomerName | CustomerID | OrderDate | TotalAmount | OrderStatus");
+            foreach (var order in pageItems)
+            {
+                Console.WriteLine($"{order.Customer?.CustomerName} | {order.Customer?.CustomerId} | {order.OrderDate} | {order.TotalAmount} | {order.OrderStatus}");
+            }
+    
+            Console.WriteLine("\nCommands: n = next, p = previous, q = quit");
+            Console.Write("Enter command: ");
+            var cmd = (Console.ReadLine() ?? string.Empty).Trim().ToLowerInvariant();
+    
+            if (cmd == "q") break;
+            if (cmd == "n")
+            {
+                if (currentPage < totalPages) currentPage++;
+                else Console.WriteLine("Already on last page.");
+                continue;
+            }
+            if (cmd == "p")
+            {
+                if (currentPage > 1) currentPage--;
+                else Console.WriteLine("Already on first page.");
+                continue;
+            }
+    
+            Console.WriteLine("Unknown command.");
+        }
     }
+    
 
-    public static async Task StatusMeny()
+    public static async Task StatusMenu()
     {
         while (true)
         {
             Console.WriteLine(
-                "\nStatus: 1. Order-By-Status | 2. Order-By-Customers | 3. Order-Page | 4. Exit");
+                "\nStatus: 1. Order-By-Status | 2. Order-By-Customers | 3. Orders-Page | 4. Exit");
             Console.WriteLine(">");
             var line = Console.ReadLine()?.Trim() ?? string.Empty;
 
@@ -280,7 +328,7 @@ public class OrderService
                     await OrdersByCustomers();
                     break;
                 case "3":
-                    await OrderAddAsync(); //Order Page
+                    await OrdersPage(1, 10); 
                     break;
                 case "4":
                     return;

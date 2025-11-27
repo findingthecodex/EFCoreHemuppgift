@@ -42,39 +42,24 @@ public class Program
          if (!await db.Orders.AnyAsync())
          {
             db.Orders.AddRange(
-               new Order
-               {
-                  OrderId = 1, CustomerId = 1, OrderDate = DateTime.Now.AddDays(-10), OrderStatus = "Shipped"
-               },
-               new Order
-               {
-                  OrderId = 2, CustomerId = 2, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Processing"
-               },
+               new Order { OrderId = 1, CustomerId = 1, OrderDate = DateTime.Now.AddDays(-10), OrderStatus = "Shipped" },
+               new Order { OrderId = 2, CustomerId = 2, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Processing" },
                new Order { OrderId = 3, CustomerId = 3, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Paid" },
-               new Order
-               {
-                  OrderId = 4, CustomerId = 1, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Delivered"
-               }
+               new Order { OrderId = 4, CustomerId = 1, OrderDate = DateTime.Now.AddDays(-5), OrderStatus = "Delivered" }
             );
             await db.SaveChangesAsync();
             Console.WriteLine("Seeded Orders");
          }
 
-         if (!await db.Products.AnyAsync())
+         if (!db.Products.Any())
          {
             db.Products.AddRange(
-               new Product
-               {
-                  ProductId = 1, ProductName = "Laptop", ProductPrice = 10000.00m, ProductDescription = "MacBook"
-               },
-               new Product
-               {
-                  ProductId = 2, ProductName = "Smartphone", ProductPrice = 5000.00m, ProductDescription = "iPhone"
-               },
-               new Product
-               {
-                  ProductId = 3, ProductName = "Tablet", ProductPrice = 3000.00m, ProductDescription = "iPad"
-               }
+               new Product { ProductId = 1, ProductName = "MacBook", ProductPrice = 10000.00m, ProductDescription = "MacBook Air 2" },
+               new Product { ProductId = 2, ProductName = "iPhone", ProductPrice = 5000.00m, ProductDescription = "iPhone" },
+               new Product { ProductId = 3, ProductName = "iPad", ProductPrice = 3000.00m, ProductDescription = "iPad" },
+               new Product { ProductId = 4, ProductName = "Apple-TV", ProductPrice = 12000.00m, ProductDescription = "AppleTV" },
+               new Product { ProductId = 5, ProductName = "AirPods", ProductPrice = 2000.00m, ProductDescription = "Airpods Pro 2" },
+               new Product { ProductId = 6, ProductName = "Apple-Watch", ProductPrice = 3000.00m, ProductDescription = "AppleWatch" }
             );
             await db.SaveChangesAsync();
             Console.WriteLine("Seeded Products");
@@ -198,7 +183,7 @@ public class Program
                   await OrderService.OrderAddAsync();
                   break;
                case "4":
-                  await OrderService.StatusMeny();
+                  await OrderService.StatusMenu();
                   break;
                case "5":
                   return;
