@@ -51,15 +51,15 @@ public class Program
             Console.WriteLine("Seeded Orders");
          }
 
-         if (!db.Products.Any())
+         if (await db.Products.AnyAsync())
          {
             db.Products.AddRange(
-               new Product { ProductId = 1, ProductName = "MacBook", ProductPrice = 10000.00m, ProductDescription = "MacBook Air 2" },
-               new Product { ProductId = 2, ProductName = "iPhone", ProductPrice = 5000.00m, ProductDescription = "iPhone" },
-               new Product { ProductId = 3, ProductName = "iPad", ProductPrice = 3000.00m, ProductDescription = "iPad" },
-               new Product { ProductId = 4, ProductName = "Apple-TV", ProductPrice = 12000.00m, ProductDescription = "AppleTV" },
-               new Product { ProductId = 5, ProductName = "AirPods", ProductPrice = 2000.00m, ProductDescription = "Airpods Pro 2" },
-               new Product { ProductId = 6, ProductName = "Apple-Watch", ProductPrice = 3000.00m, ProductDescription = "AppleWatch" }
+               new Product { ProductName = "MacBook Pro", ProductPrice = 10000.00m, ProductDescription = "MacBook Air 2" },
+               new Product { ProductName = "iPhone Pro", ProductPrice = 5000.00m, ProductDescription = "iPhone" },
+               new Product { ProductName = "iPad Pro", ProductPrice = 3000.00m, ProductDescription = "iPad" },
+               new Product { ProductName = "Apple-TV", ProductPrice = 12000.00m, ProductDescription = "AppleTV" },
+               new Product { ProductName = "AirPods", ProductPrice = 2000.00m, ProductDescription = "Airpods Pro 2" },
+               new Product { ProductName = "Apple-Watch", ProductPrice = 3000.00m, ProductDescription = "AppleWatch" }
             );
             await db.SaveChangesAsync();
             Console.WriteLine("Seeded Products");
