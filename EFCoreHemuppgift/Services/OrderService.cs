@@ -165,12 +165,12 @@ public class OrderService
     public static async Task OrderByStatusAsync()
     {
         using var db = new ShopContext();
-        
+
         var orders = await db.Orders
             .Include(o => o.Customer)
             .OrderBy(o => o.OrderDate)
             .ToListAsync();
-        
+
         Console.WriteLine("All orders: ");
         Console.WriteLine("OrderID | Customer | OrderDate | TotalAmount | OrderStatus");
         foreach (var order in orders)
@@ -178,7 +178,7 @@ public class OrderService
             Console.WriteLine(
                 $"OrderID: {order.OrderId} | Customer: {order.Customer?.CustomerName} | OrderDate: {order.OrderDate} | TotalAmount: {order.TotalAmount} | OrderStatus: {order.OrderStatus}");
         }
-        
+
         Console.WriteLine();
         Console.WriteLine("Enter order status (Pending, Processing, Paid, Shipped, Delivered): ");
         var statusInput = Console.ReadLine()?.Trim().ToLowerInvariant();
@@ -187,6 +187,7 @@ public class OrderService
             Console.WriteLine("Order status is required.");
             return;
         }
+
         var filteredOrders = orders
             .Where(o => o.OrderStatus.Equals(statusInput, StringComparison.OrdinalIgnoreCase))
             .ToList();
@@ -195,25 +196,27 @@ public class OrderService
             Console.WriteLine($"No orders found with status '{statusInput}'.");
             return;
         }
+
         Console.WriteLine($"\nOrders with status '{statusInput}': ");
         Console.WriteLine("OrderID | Customer | OrderDate | TotalAmount | OrderStatus");
         foreach (var order in filteredOrders)
-        {            Console.WriteLine(
+        {
+            Console.WriteLine(
                 $"OrderID: {order.OrderId} | Customer: {order.Customer?.CustomerName} | OrderDate: {order.OrderDate} | TotalAmount: {order.TotalAmount} | OrderStatus: {order.OrderStatus}");
-        }   
+        }
     }
 
     public static async Task OrdersByCustomers()
     {
         using var db = new ShopContext();
-        
+
         var customers = await db.Customers
             .Include(c => c.Orders)!
             .ThenInclude(o => o.OrderRows)
             .ThenInclude(or => or.Product)
             .OrderBy(c => c.CustomerId)
             .ToListAsync();
-        
+
         Console.WriteLine("Orders by Customers:");
         foreach (var customer in customers)
         {
@@ -223,24 +226,70 @@ public class OrderService
                 Console.WriteLine("  No orders found.");
                 continue;
             }
+
             foreach (var order in customer.Orders)
             {
-                Console.WriteLine($"  Order ID: {order.OrderId} | Order Date: {order.OrderDate} | Total Amount: {order.TotalAmount} | Status: {order.OrderStatus}");
+                Console.WriteLine(
+                    $"  Order ID: {order.OrderId} | Order Date: {order.OrderDate} | Total Amount: {order.TotalAmount} | Status: {order.OrderStatus}");
                 if (!order.OrderRows.Any())
                 {
                     Console.WriteLine("    No order rows found.");
                     continue;
                 }
+
                 foreach (var orderRow in order.OrderRows)
                 {
-                    Console.WriteLine($"    Product: {orderRow.Product?.ProductName} | Quantity: {orderRow.OrderQuantity} | Unit Price: {orderRow.UnitPrice}");
+                    Console.WriteLine(
+                        $"    Product: {orderRow.Product?.ProductName} | Quantity: {orderRow.OrderQuantity} | Unit Price: {orderRow.UnitPrice}");
                 }
             }
         }
     }
+
+    public static async Task OrdersPage()
+    {
+        using var db = new ShopContext();
+        
+        var query = db.Orders
+            .Include(o => o.OrderRows)
+    }
+
+    public static async Task StatusMeny()
+    {
+        while (true)
+        {
+            Console.WriteLine(
+                "\nStatus: 1. Order-By-Status | 2. Order-By-Customers | 3. Order-Page | 4. Exit");
+            Console.WriteLine(">");
+            var line = Console.ReadLine()?.Trim() ?? string.Empty;
+
+            if (line.Equals("..", StringComparison.OrdinalIgnoreCase))
+            {
+                break;
+            }
+
+            var parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var cmd = parts[0].ToLowerInvariant();
+
+            switch (cmd)
+            {
+                case "1":
+                    await OrderByStatusAsync();
+                    break;
+                case "2":
+                    await OrdersByCustomers();
+                    break;
+                case "3":
+                    await OrderAddAsync(); //Order Page
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Unknown command");
+                    break;
+            }
+        }
+    }
 }
-
-
-
 
         

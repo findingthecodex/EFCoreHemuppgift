@@ -3186,19 +3186,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Giang\\.nuget\\packages\\": {}
+    "/Users/koreanbadboy/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Giang\\RiderProjects\\EFCoreHemuppgift\\EFCoreHemuppgift\\EFCoreHemuppgift.csproj",
+      "projectUniqueName": "/Users/koreanbadboy/Documents/Beo/Programmering skolan/RiderProjects/EFCoreHemuppgift/EFCoreHemuppgift/EFCoreHemuppgift.csproj",
       "projectName": "EFCoreHemuppgift",
-      "projectPath": "C:\\Users\\Giang\\RiderProjects\\EFCoreHemuppgift\\EFCoreHemuppgift\\EFCoreHemuppgift.csproj",
-      "packagesPath": "C:\\Users\\Giang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Giang\\RiderProjects\\EFCoreHemuppgift\\EFCoreHemuppgift\\obj\\",
+      "projectPath": "/Users/koreanbadboy/Documents/Beo/Programmering skolan/RiderProjects/EFCoreHemuppgift/EFCoreHemuppgift/EFCoreHemuppgift.csproj",
+      "packagesPath": "/Users/koreanbadboy/.nuget/packages/",
+      "outputPath": "/Users/koreanbadboy/Documents/Beo/Programmering skolan/RiderProjects/EFCoreHemuppgift/EFCoreHemuppgift/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Giang\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/koreanbadboy/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3216,11 +3216,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -3254,7 +3249,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/Users/koreanbadboy/.dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
