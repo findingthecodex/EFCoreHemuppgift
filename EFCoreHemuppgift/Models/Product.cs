@@ -7,6 +7,6 @@ public class Product
     
     // Properties
     public string? ProductName { get; set; }
-    public decimal Price { get; set; }
-    public string? Description { get; set; }
+    public decimal ProductPrice { get; set; }
+    public string? ProductDescription { get; set; }
 }

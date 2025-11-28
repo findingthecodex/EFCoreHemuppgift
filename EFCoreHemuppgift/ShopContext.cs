@@ -22,11 +22,12 @@ public class ShopContext : DbContext
         {
             c.HasKey(x => x.CustomerId);
             
-            c.Property(x => x.Name).IsRequired().HasMaxLength(50);
-            c.Property(x => x.Email).IsRequired().HasMaxLength(50);
-            c.Property(x => x.City).HasMaxLength(50);
+            c.Property(x => x.CustomerName).IsRequired().HasMaxLength(50);
+            c.Property(x => x.CustomerId).IsRequired().HasMaxLength(50);
+            c.Property(x => x.CustomerCity).HasMaxLength(50);
+            c.Property(x => x.CustomerEmail).IsRequired().HasMaxLength(50);
             
-            c.HasIndex(x => x.Email).IsUnique();
+            c.HasIndex(x => x.CustomerEmail).IsUnique();
         });
 
         modelBuilder.Entity<Order>(o =>
@@ -34,7 +35,7 @@ public class ShopContext : DbContext
             o.HasKey(x => x.OrderId);
             
             o.Property(x => x.OrderDate).IsRequired();
-            o.Property(x => x.Status).IsRequired().HasMaxLength(20);
+            o.Property(x => x.OrderStatus).IsRequired().HasMaxLength(20);
             o.Property(x => x.TotalAmount).IsRequired();
             
             o.HasOne(x => x.Customer)
@@ -47,7 +48,7 @@ public class ShopContext : DbContext
         {
             o.HasKey(x => x.OrderRowId);
             
-            o.Property(x => x.Quantity).IsRequired();
+            o.Property(x => x.OrderQuantity).IsRequired();
             o.Property(x => x.UnitPrice).IsRequired();
 
             o.HasOne(x => x.Order)
@@ -64,8 +65,8 @@ public class ShopContext : DbContext
             {
                 p.HasKey(x => x.ProductId);
                 p.Property(x => x.ProductName).IsRequired().HasMaxLength(50);
-                p.Property(x => x.Price).IsRequired();
-                p.Property(x => x.Description).IsRequired();
+                p.Property(x => x.ProductPrice).IsRequired();
+                p.Property(x => x.ProductDescription).IsRequired();
             }
         );
     }

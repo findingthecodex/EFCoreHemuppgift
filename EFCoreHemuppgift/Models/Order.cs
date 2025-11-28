@@ -10,7 +10,7 @@ public class Order
     public DateTime OrderDate { get; set; }
     
     [Required] 
-    public string Status { get; set; } = null!;
+    public string OrderStatus { get; set; } = null!;
     
     [Required]
     public decimal TotalAmount { get; set; }
